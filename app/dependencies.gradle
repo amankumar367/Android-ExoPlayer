@@ -29,6 +29,7 @@ ext {
     final def vRxAndroid = '2.1.0'
     final def vRxJava = '2.2.3'
     final def vStetho = '1.5.0'
+    final def vExoPlayer = '2.7.3'
 
     /* Test Libraries */
     final def vJUnit = '4.12'
@@ -75,6 +76,11 @@ ext {
             debugAnnotationProcessor      : "com.google.dagger:dagger-compiler:$vDagger"
     ]
 
+    exoPlayerDependencies = [
+            exoplayerCore  : "com.google.android.exoplayer:exoplayer-core:$vExoPlayer",
+            exoplayerDash  : "com.google.android.exoplayer:exoplayer-dash:$vExoPlayer",
+            exoplayerUI    : "com.google.android.exoplayer:exoplayer-ui:$vExoPlayer"
+    ]
     libs = [
             circleImageview : "de.hdodenhof:circleimageview:$vCircleImageView",
             expandableLayout: "net.cachapa.expandablelayout:expandablelayout:$vExpandableLayout",
@@ -111,11 +117,12 @@ ext {
     allImplementation = [
             androidSupportLibrary: androidSupportLibrary.values(),
             androidLibraries     : androidLibraries.values(),
-//            androidTestLibs      : androidTestLibs.values(),
+            androidTestLibs      : androidTestLibs.values(),
             rxJavaDependencies   : rxJavaDependencies.values(),
             networkDependencies  : networkDependencies.values(),
             kotlin               : kotlin.values(),
             testLibs             : testLibs.values(),
-            archLifecycle        : archLifecycle.values()
+            archLifecycle        : archLifecycle.values(),
+            exoPlayer            : exoPlayerDependencies.values()
     ]
 }
