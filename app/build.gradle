@@ -4,6 +4,8 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
+apply plugin: 'kotlin-kapt'
+
 apply from: 'dependencies.gradle'
 
 android {
@@ -38,6 +40,10 @@ android {
             debuggable = true
         }
     }
+
+    kapt {
+        generateStubs = true
+    }
 }
 
 dependencies {
@@ -51,4 +57,8 @@ dependencies {
     testAnnotationProcessor testAnnotationProcessor.values()
 
     debugAnnotationProcessor debugAnnotationProcessor.values()
+
+    kapt "com.google.dagger:dagger-compiler:2.22.1"
+    kapt "com.google.dagger:dagger-android-processor:2.14.1"
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
 }

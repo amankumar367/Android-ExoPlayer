@@ -20,7 +20,7 @@ ext {
 
     /* Third party Libraries */
     final def vCircleImageView = '2.2.0'
-    final def vDagger = '2.21'
+    final def vDagger = '2.22.1'
     final def vExpandableLayout = '2.9.2'
     final def vJwRetrofitRxJavaAdapter = '1.0.0'
     final def vJwRxBinding = '2.1.1'
@@ -50,7 +50,6 @@ ext {
     androidLibraries = [
             multiDex     : "androidx.multidex:multidex:$vMultiDex",
             supportDesign: "com.google.android.material:material:$vSupport"
-
     ]
 
     rxJavaDependencies = [
@@ -71,9 +70,10 @@ ext {
     dagger = [
             dagger                        : "com.google.dagger:dagger:$vDagger",
             daggerCompiler                : "com.google.dagger:dagger-compiler:$vDagger",
+            daggerAndroidSupport          : "com.google.dagger:dagger-android-support:$vDagger",
             androidTestAnnotationProcessor: "com.google.dagger:dagger-compiler:$vDagger",
             testAnnotationProcessor       : "com.google.dagger:dagger-compiler:$vDagger",
-            debugAnnotationProcessor      : "com.google.dagger:dagger-compiler:$vDagger"
+            debugAnnotationProcessor      : "com.google.dagger:dagger-compiler:$vDagger",
     ]
 
     exoPlayerDependencies = [
@@ -81,12 +81,14 @@ ext {
             exoplayerDash  : "com.google.android.exoplayer:exoplayer-dash:$vExoPlayer",
             exoplayerUI    : "com.google.android.exoplayer:exoplayer-ui:$vExoPlayer"
     ]
+
     libs = [
-            circleImageview : "de.hdodenhof:circleimageview:$vCircleImageView",
-            expandableLayout: "net.cachapa.expandablelayout:expandablelayout:$vExpandableLayout",
-            stetho          : "com.facebook.stetho:stetho:$vStetho",
-            stethoOkHttp    : "com.facebook.stetho:stetho-okhttp3:$vStetho",
-            dagger          : dagger.dagger
+            circleImageview     : "de.hdodenhof:circleimageview:$vCircleImageView",
+            expandableLayout    : "net.cachapa.expandablelayout:expandablelayout:$vExpandableLayout",
+            stetho              : "com.facebook.stetho:stetho:$vStetho",
+            stethoOkHttp        : "com.facebook.stetho:stetho-okhttp3:$vStetho",
+            dagger              : dagger.dagger,
+            daggerAndroidSupport: dagger.daggerAndroidSupport
     ]
 
     kotlin = [
@@ -123,6 +125,7 @@ ext {
             kotlin               : kotlin.values(),
             testLibs             : testLibs.values(),
             archLifecycle        : archLifecycle.values(),
-            exoPlayer            : exoPlayerDependencies.values()
+            exoPlayer            : exoPlayerDependencies.values(),
+            libsDependencies     : libs.values()
     ]
 }
