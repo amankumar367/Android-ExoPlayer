@@ -14,7 +14,7 @@ import javax.inject.Inject
 class ChannelRepository : ChannelRepositoryI {
 
     @Inject
-    internal lateinit var mRetrofit: Retrofit
+    lateinit var mRetrofit: Retrofit
     private var channelListApi: ApiInterface? = null
 
 

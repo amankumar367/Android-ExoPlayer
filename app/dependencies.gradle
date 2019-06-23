@@ -44,7 +44,8 @@ ext {
     ]
 
     archLifecycle = [
-            lifeCycle: "androidx.lifecycle:lifecycle-viewmodel:$vLifeCycleKTX"
+            lifeCycle           : "androidx.lifecycle:lifecycle-viewmodel:$vLifeCycleKTX",
+            lifecycleExtensions : "androidx.lifecycle:lifecycle-extensions:$vLifeCycleKTX"
     ]
 
     androidLibraries = [
@@ -69,11 +70,15 @@ ext {
 
     dagger = [
             dagger                        : "com.google.dagger:dagger:$vDagger",
-            daggerCompiler                : "com.google.dagger:dagger-compiler:$vDagger",
             daggerAndroidSupport          : "com.google.dagger:dagger-android-support:$vDagger",
             androidTestAnnotationProcessor: "com.google.dagger:dagger-compiler:$vDagger",
             testAnnotationProcessor       : "com.google.dagger:dagger-compiler:$vDagger",
             debugAnnotationProcessor      : "com.google.dagger:dagger-compiler:$vDagger",
+    ]
+
+    daggerKapt = [
+            daggerCompiler                : "com.google.dagger:dagger-compiler:$vDagger",
+            daggerAndroidProcessor        : "com.google.dagger:dagger-android-processor:$vDagger"
     ]
 
     exoPlayerDependencies = [

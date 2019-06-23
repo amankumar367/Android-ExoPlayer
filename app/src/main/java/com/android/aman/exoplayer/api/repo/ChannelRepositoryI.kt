@@ -5,5 +5,5 @@ import com.android.aman.exoplayer.api.retrofit.ApiCallBack
 
 
 interface ChannelRepositoryI {
-    abstract fun getChannel(apiCallBack: ApiCallBack<ChannelList>)
+    fun getChannel(apiCallBack: ApiCallBack<ChannelList>)
 }

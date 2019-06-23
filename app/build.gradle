@@ -58,7 +58,5 @@ dependencies {
 
     debugAnnotationProcessor debugAnnotationProcessor.values()
 
-    kapt "com.google.dagger:dagger-compiler:2.22.1"
-    kapt "com.google.dagger:dagger-android-processor:2.14.1"
-    implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
+    kapt daggerKapt.values()
 }
