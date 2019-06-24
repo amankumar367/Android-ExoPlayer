@@ -1,6 +1,5 @@
 package com.android.aman.exoplayer.ui
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.android.aman.exoplayer.api.data.ChannelList
