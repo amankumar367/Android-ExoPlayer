@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.android.aman.exoplayer.BuildConfig
 import com.android.aman.exoplayer.R
 import com.google.android.exoplayer2.DefaultLoadControl
 import com.google.android.exoplayer2.DefaultRenderersFactory
@@ -17,6 +18,7 @@ import com.google.android.exoplayer2.trackselection.DefaultTrackSelector
 import com.google.android.exoplayer2.ui.PlayerView
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory
 import com.google.android.exoplayer2.util.Util
+import com.google.android.gms.ads.AdRequest
 import kotlinx.android.synthetic.main.fragment_media_player.view.*
 
 class MediaPlayerFragment : androidx.fragment.app.Fragment() {
@@ -24,7 +26,7 @@ class MediaPlayerFragment : androidx.fragment.app.Fragment() {
     private lateinit var root : View
     private lateinit var playerView : PlayerView
     private var player : SimpleExoPlayer? = null
-    private var playWhenReady : Boolean = false
+    private var playWhenReady : Boolean = true
     private var currentWindow : Int = 0
     private var playbackPosition : Long = 0
 
@@ -38,7 +40,22 @@ class MediaPlayerFragment : androidx.fragment.app.Fragment() {
         root = inflater.inflate(R.layout.fragment_media_player, container, false)
         playerView = root.player_view
         validateData()
+        setAdInUI()
         return root
+    }
+
+    private fun setAdInUI() {
+        val topAdBanner = root.topAdBanner
+        val adTopRequest = AdRequest.Builder()
+            .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+            .build()
+        topAdBanner.loadAd(adTopRequest)
+
+        val bottomBar = root.bottomAdBanner
+        val adBottomRequest = AdRequest.Builder()
+            .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+            .build()
+        bottomBar.loadAd(adBottomRequest)
     }
 
     @Suppress("UNCHECKED_CAST")
@@ -111,7 +128,7 @@ class MediaPlayerFragment : androidx.fragment.app.Fragment() {
         for(uriString in uris) {
             uri = Uri.parse(uriString)
             val mediaSource = ExtractorMediaSource.Factory(
-                DefaultHttpDataSourceFactory("exoplayer-codelab")
+                DefaultHttpDataSourceFactory(BuildConfig.APPLICATION_ID)
             ).createMediaSource(uri)
             mediaSourceList.add(mediaSource)
         }
