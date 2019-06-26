@@ -8,8 +8,8 @@ import com.android.aman.exoplayer.api.retrofit.ApiCallBack
 
 class VideoPlayerViewModel : ViewModel() {
 
-    var channelList = MutableLiveData<ChannelList>()
     private lateinit var repositoryI: ChannelRepositoryI
+
     internal var state = MutableLiveData<VideoPlayerState>()
 
     fun setRepositoryI(channelRepositoryI: ChannelRepositoryI){
@@ -17,18 +17,15 @@ class VideoPlayerViewModel : ViewModel() {
     }
 
     fun getChhannel(){
-//        state.value = state.value!!.showLoading()
+        state.postValue(VideoPlayerState.showLoading())
         repositoryI.getChannel(object: ApiCallBack<ChannelList>{
             override fun onSuccess(t: ChannelList) {
-                channelList.value = t
-//                state.value = state.value!!.showSuccessChannelList(t)
+                state.postValue(VideoPlayerState.showSuccessChannelList(t))
             }
 
             override fun onFailure(message: String) {
-//                state.value = state.value!!.showError(message)
+                state.postValue(VideoPlayerState.showError(message))
             }
         })
     }
-
-
 }

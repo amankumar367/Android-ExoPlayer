@@ -3,25 +3,26 @@ package com.android.aman.exoplayer.ui
 import com.android.aman.exoplayer.api.data.ChannelList
 
 data class VideoPlayerState(
-    var isLoading: Boolean,
-    var message: String) {
+    var isSuccess:  Boolean = false,
+    var isLoading: Boolean = false,
+    var message: String = "",
+    var channelList: ChannelList? = null ) {
 
-    private lateinit var channelList: ChannelList
-    constructor(isLoading: Boolean, message: String, channelList: ChannelList)
-            : this(isLoading, message){
-        this.channelList = channelList!!
+    companion object {
+        fun showLoading(): VideoPlayerState {
+            return VideoPlayerState(isLoading = true, message =  "Loading.....")
+        }
+        fun showSuccessChannelList(channelList: ChannelList): VideoPlayerState {
+            return VideoPlayerState(
+                isSuccess = true,
+                isLoading = false,
+                message = "Loaded Successfully",
+                channelList = channelList
+            )
+        }
+
+        fun showError(message: String): VideoPlayerState {
+            return VideoPlayerState(false, message = message)
+        }
     }
-
-
-    fun showLoading(): VideoPlayerState {
-        return VideoPlayerState(true, "Loading.....")
-    }
-    fun showSuccessChannelList(channelList: ChannelList): VideoPlayerState {
-        return VideoPlayerState(false, "Loading Successfull", channelList)
-    }
-
-    fun showError(message: String): VideoPlayerState {
-        return VideoPlayerState(false, message)
-    }
-
 }

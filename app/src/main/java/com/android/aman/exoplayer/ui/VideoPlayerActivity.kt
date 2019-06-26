@@ -1,11 +1,13 @@
 package com.android.aman.exoplayer.ui
 
+import android.app.Activity
 import android.graphics.Typeface
 import android.os.Bundle
 import android.util.Log
 import android.view.Gravity
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -61,53 +63,52 @@ class VideoPlayerActivity : AppCompatActivity() {
     }
 
     private fun setObserber() {
-        viewModel.state.observe(this, Observer<VideoPlayerState> { t ->
-            setUiState(t)
-            if(t != null)
-                Log.d("ChannelList",""+ t.message)
-            else
-                Log.d("ChannelList","List is empty")
+        viewModel.state.observe(this, Observer<VideoPlayerState> { state ->
+            setUiState(state)
         })
-
-        viewModel.channelList.observe(this,
-            Observer<ChannelList> { t ->
-                if(t != null){
-                    val liveTvUrl = arrayListOf(
-                        t.channels!![0]!!.livetvPromoVideos!![0]!!,
-                        t.channels[0]!!.livetvPromoVideos!![1]!!,
-                        t.channels[1]!!.livetvPromoVideos!![0]!!,
-                        t.channels[1]!!.livetvPromoVideos!![1]!!,
-                        t.channels[1]!!.livetvPromoVideos!![2]!!)
-
-                    val livetvPreAdUrl = arrayListOf(
-                        t.channels[0]!!.livetvPrerollAdtag,
-                        t.channels[1]!!.livetvPrerollAdtag)
-
-                    val livetvMidAdUrl = arrayListOf(
-                        t.channels[0]!!.livetvMidrollAdtag!![0]!!,
-                        t.channels[0]!!.livetvMidrollAdtag!![1]!!,
-                        t.channels[1]!!.livetvMidrollAdtag!![0]!!,
-                        t.channels[1]!!.livetvMidrollAdtag!![1]!!,
-                        t.channels[1]!!.livetvMidrollAdtag!![2]!!)
-
-                    val liveTvInterstitalAdTime = arrayListOf(
-                        t.channels[0]!!.videoplayDurationForInterstital,
-                        t.channels[1]!!.videoplayDurationForInterstital)
-
-
-                    startFragment(
-                        liveTvUrl,
-                        livetvPreAdUrl,
-                        livetvMidAdUrl,
-                        liveTvInterstitalAdTime)
-                    Log.d("ChannelList",""+ t.channels)
-                } else
-                    Log.d("ChannelList","List is empty")
-            })
     }
 
     private fun setUiState(t: VideoPlayerState?) {
         databinding.state = t
+        when{
+            databinding.state!!.isSuccess -> {
+                toast(databinding.state!!.message)
+                showList(databinding.state!!.channelList!!)
+            }
+        }
+    }
+
+    private fun showList(t: ChannelList) {
+        val liveTvUrl = arrayListOf(
+            t.channels!![0]!!.livetvPromoVideos!![0]!!,
+            t.channels[0]!!.livetvPromoVideos!![1]!!,
+            t.channels[1]!!.livetvPromoVideos!![0]!!,
+            t.channels[1]!!.livetvPromoVideos!![1]!!,
+            t.channels[1]!!.livetvPromoVideos!![2]!!)
+
+        val livetvPreAdUrl = arrayListOf(
+            t.channels[0]!!.livetvPrerollAdtag,
+            t.channels[1]!!.livetvPrerollAdtag)
+
+        val livetvMidAdUrl = arrayListOf(
+            t.channels[0]!!.livetvMidrollAdtag!![0]!!,
+            t.channels[0]!!.livetvMidrollAdtag!![1]!!,
+            t.channels[1]!!.livetvMidrollAdtag!![0]!!,
+            t.channels[1]!!.livetvMidrollAdtag!![1]!!,
+            t.channels[1]!!.livetvMidrollAdtag!![2]!!)
+
+        val liveTvInterstitalAdTime = arrayListOf(
+            t.channels[0]!!.videoplayDurationForInterstital,
+            t.channels[1]!!.videoplayDurationForInterstital)
+
+
+        startFragment(
+            liveTvUrl,
+            livetvPreAdUrl,
+            livetvMidAdUrl,
+            liveTvInterstitalAdTime)
+
+        Log.d("ChannelList", "" + t.channels)
     }
 
     private fun startFragment(
@@ -145,4 +146,7 @@ class VideoPlayerActivity : AppCompatActivity() {
         }
     }
 
+    private fun Activity.toast(string: String){
+        Toast.makeText(this,string,Toast.LENGTH_SHORT).show()
+    }
 }
