@@ -1,8 +1,9 @@
-package com.android.aman.exoplayer.ui.fragment
+package com.android.aman. exoplayer.ui.fragment
 
 import android.content.res.Configuration
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
